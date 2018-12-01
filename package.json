@@ -6,6 +6,8 @@
         "gulp-clean-css": "^4.0.0"
     },
     "scripts": {
-        "dev": "gulp dev"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "gulp dev",
+        "build": "gulp build"
     }
 }

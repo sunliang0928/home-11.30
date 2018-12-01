@@ -2,7 +2,7 @@
  * @Author: sunliang 
  * @Date: 2018-11-30 20:16:41 
  * @Last Modified by: sunliang
- * @Last Modified time: 2018-11-30 22:39:36
+ * @Last Modified time: 2018-12-01 08:49:23
  */
 
 var gulp = require('gulp');
@@ -14,6 +14,7 @@ var clean = require('gulp-clean-css');
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
+var list = require('./mock/data');
 
 gulp.task('devSass', function() {
     return gulp.src('./src/scss/*.scss')
@@ -37,13 +38,16 @@ gulp.task('server', function() {
         open: true,
         middleware: function(req, res, next) {
             var pathname = url.parse(req.url).pathname;
-            if (pathname === 'favicon.ico') {
-                res.end('');
-                return;
+            if (pathname === '/favicon.ico') {
+                return res.end('');
+            }
+            if (pathname === '/api/list') {
+                res.end(JSON.stringify({ code: 1, data: list }))
             } else {
                 pathname = pathname === '/' ? 'index.html' : pathname;
                 res.end(fs.readFileSync(path.join(__dirname, 'src', pathname)));
             }
+
         }
     }))
 })

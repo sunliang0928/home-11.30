@@ -134,26 +134,7 @@
             </div>
             <div class="bscroll">
                 <div class="scroll">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
-                    <li>9</li>
-                    <li>10</li>
-                    <li>11</li>
-                    <li>12</li>
-                    <li>13</li>
-                    <li>14</li>
-                    <li>15</li>
-                    <li>16</li>
-                    <li>17</li>
-                    <li>18</li>
-                    <li>19</li>
-                    <li>20</li>
+
                 </div>
             </div>
         </main>
@@ -161,10 +142,26 @@
     <script src="./js/flexible.js"></script>
     <script src="./js/swiper-4.3.3.min.js"></script>
     <script src="./js/better-scroll.js"></script>
+    <script src="./js/zepto.js"></script>
     <script>
         var mySwiper = new Swiper('.banner');
         var mySwiper1 = new Swiper('.banne');
         var myBScroll = new BScroll('.bscroll');
+        $.ajax({
+            url: '/api/list',
+            type: 'get',
+            dataType: 'json',
+            success: function(res) {
+                if (res.code == 1) {
+                    var str = ``;
+                    res.data.forEach(function(item) {
+                        str += `<li>${item.name}</li>`
+                        console.log(item)
+                    })
+                    $('.scroll').html($(str));
+                }
+            }
+        })
     </script>
 </body>
 
